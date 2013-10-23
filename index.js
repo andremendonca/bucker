@@ -241,6 +241,17 @@ Bucker.prototype.access = function (data) {
     });
 };
 
+Bucker.prototype.store = function (data) {
+    var self = this;
+    var handler;
+
+    data.time = moment(new Date());
+    types.forEach(function (type) {
+        handler = self._findHandler('access', type);
+        if (handler) handler.store(self.name, data, self._tags);
+    });
+};
+
 Bucker.prototype.middleware = function () {
     var self = this;
 
